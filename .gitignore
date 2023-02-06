@@ -9,6 +9,6 @@
 *.terraform
 *.tfstate
 *.tfstate.*
-clo835-assign1
+clo835-assign1.pem
 
 
