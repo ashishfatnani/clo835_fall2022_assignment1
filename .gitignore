@@ -1,0 +1,12 @@
+
+**/.terraform/*
+.terraform.lock.hcl
+**/.terraform.lock.hcl
+# .tfstate files
+./Codebase/.terraform
+./Codebase/.terraform.tfstate
+./Codebase/.terraform.tfstate.backup
+*.terraform
+*.tfstate
+*.tfstate.*
+

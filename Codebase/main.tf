@@ -8,7 +8,7 @@ resource "aws_instance" "webapp_server" {
   subnet_id            = aws_subnet.public_subnet.id
   iam_instance_profile = "LabInstanceProfile"
   security_groups      = [aws_security_group.webapp_sg_assign1.id]
-  key_name = "clo835-assign1.pem"
+  key_name = "clo835-assign1"
   tags = {
     Name = "webapp-server"
   }
