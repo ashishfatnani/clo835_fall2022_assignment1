@@ -2,6 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+// Creating Ec2 instance
 resource "aws_instance" "webapp_server" {
   ami           = "ami-0aa7d40eeae50c9a9"
   instance_type = "t2.micro"
@@ -15,10 +16,12 @@ resource "aws_instance" "webapp_server" {
  
 }
 
+//Default VPC
 data "aws_vpc" "default" {
   default = true
 }
 
+// For Public Subnet
 resource "aws_subnet" "public_subnet" {
   vpc_id     = data.aws_vpc.default.id
   cidr_block = "172.31.96.0/20"
@@ -29,18 +32,24 @@ resource "aws_subnet" "public_subnet" {
   }
 }
 
+
+// Creation of ECR of application
 resource "aws_ecr_repository" "application_ecr_repo" {
   name = "application_ecr_repo"
 }
+
+// Creation of ECR of database
 resource "aws_ecr_repository" "database_ecr_repo" {
   name = "database_ecr_repo"
 }
 
+// Creation of Security group
 resource "aws_security_group" "webapp_sg_assign1" {
   name        = "webapp-security-group-assign1"
   description = "Security group for webapp server"
   vpc_id      = data.aws_vpc.default.id
-
+  
+//opening ssh for coonecting to ec2 via ssh
   ingress {
     from_port   = 22
     to_port     = 22
@@ -54,6 +63,7 @@ resource "aws_security_group" "webapp_sg_assign1" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+//Three ports for 3 conatiners of our application
   ingress {
     from_port   = 8080
     to_port     = 8080
